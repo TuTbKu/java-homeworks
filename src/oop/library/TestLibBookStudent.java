@@ -1,81 +1,142 @@
 package oop.library;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
 public class TestLibBookStudent {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         Penalty penalty = new Penalty();
         Library library = new Library();
 
-        Book book1 = new Book();
-        book1.nameOfBook = "Преступление и наказание";
-        book1.autor = "Достоевский";
-        book1.id = 1;
-        book1.quantityOfBook = 3;
-        book1.numberOfRatings = 3;
-        book1.totalRatings = 5;
-        book1.category = "Классика";
+        Book[] books = new Book[10];
+        for (int i = 0; i < books.length; i++) {
+            books[i] = new Book();
+            books[i].setRatings(new ArrayList<>());
+            books[i].setId(i + 1);
+        }
 
-        Book book2 = new Book();
-        book2.nameOfBook = "Граф Монте Кристо";
-        book2.autor = "Дюма";
-        book2.id = 2;
-        book2.quantityOfBook = 4;
+        Person[] persons = new Person[10];
+        for (int i = 0; i < persons.length; i++) {
+            persons[i] = new Person();
+            persons[i].setPersonId(i + 1);
+            persons[i].penalty = penalty;
+        }
 
-        Book book3 = new Book();
-        book3.nameOfBook = "Сказка о рыбаке и рыбке";
-        book3.autor = "Пушкин";
-        book3.id = 3;
-        book3.quantityOfBook = 7;
-
-        Person student1 = new Person();
-        student1.name = "Иван";
-        student1.personId = 1;
-        student1.role = "STUDENT";
-        student1.penalty = penalty;
-        student1.penalty.curentDay = 10;
-
-        Person student2 = new Person();
-        student2.name = "Петр";
-        student2.personId = 2;
-        student2.role = "STUDENT";
-        student2.penalty = penalty;
-
-        Person student3 = new Person();
-        student3.name = "Саша";
-        student3.personId = 3;
-        student3.role = "STUDENT";
-        student3.penalty = penalty;
-        student3.penalty.curentDay = 10;
 
         Subject mathSubject = new Subject();
         mathSubject.name = "Математика";
         mathSubject.difficulty = "medium";
-        mathSubject.startLevel = 1;
+        mathSubject.startLevel = 8;
 
-        Subject chemistrySubject = new Subject();
-        chemistrySubject.name = "Химия";
-        chemistrySubject.difficulty = "Hard";
-        chemistrySubject.startLevel = 8;
+        books[0].setNameOfBook("Преступление и наказание");
+        books[0].setAutor("Достоевский");
+        books[0].setQuantityOfBook(3);
+        books[0].setCategory("Классика");
 
+        books[1].setNameOfBook("Граф Монте Кристо");
+        books[1].setAutor("Дюма");
+        books[1].setQuantityOfBook(4);
+        books[1].setCategory("Классика");
 
-        Person teacher1 = new Person();
-        teacher1.name = "Лариса Ивановна";
-        teacher1.role = "TEACHER";
-        teacher1.personId = 1;
-        teacher1.subject = chemistrySubject;
-
-        Person teacher2 = new Person();
-        teacher2.name = "Марина Петровна";
-        teacher2.role = "TEACHER";
-        teacher2.personId = 2;
-        teacher2.subject = mathSubject;
+        books[2].setNameOfBook("Сказка о рыбаке и рыбке");
+        books[2].setAutor("Пушкин");
+        books[2].setQuantityOfBook(7);
+        books[2].setCategory("Классика");
 
 
-        library.lendBook(teacher1, book1);
-        System.out.println(" ");
-        teacher1.display(teacher1);
-        library.acceptBook(teacher1, book1);
-        System.out.println(" ");
-        library.acceptBook(teacher1, book1);
-        teacher1.history();
+        persons[0].setName("Иван");
+        persons[0].setRole("STUDENT");
+        persons[0].penalty = penalty;
+        persons[0].penalty.curentDay = 10;
+
+        persons[1].setName("Петр");
+        persons[1].setRole("STUDENT");
+        persons[1].penalty = penalty;
+
+        persons[2].setName("Саша");
+        persons[2].setRole("STUDENT");
+        persons[2].penalty = penalty;
+        persons[2].penalty.curentDay = 10;
+
+        persons[3].setName("Лариса Ивановна");
+        persons[3].setRole("TEACHER");
+        persons[3].setSubject(mathSubject);
+
+        persons[4].setName("Марина Петровна");
+        persons[4].setRole("TEACHER");
+        persons[4].setSubject(mathSubject);
+
+        System.out.println("Добро пожаловать в систему управления библиотекой");
+
+        while (true) {
+            System.out.println("Что вы хотите сделать? ");
+            System.out.println("1 - Посмотерть список доступных книг");
+            System.out.println("2 - Добавить книгу в библиотеку");
+            System.out.println("3 - Посмотреть список пользователей библиотеки");
+            System.out.println("4 - Добавить пользователя в библиотеку");
+            System.out.println("5 - Выдать книгу");
+            System.out.println("6 - Принять книгу");
+            System.out.println("0 - Завершить работу с системой");
+
+            int command = scanner.nextInt();
+
+            if (command == 1) {
+                for (Book book : books) {
+                    if (book.getNameOfBook() != null) {
+                        book.display();
+                    }
+                }
+            } else if (command == 2) {
+                for (Book book : books) {
+                    if (book.getNameOfBook() == null) {
+                        Book.addBook(book);
+                        break;
+                    }
+                }
+
+            } else if (command == 3) {
+                for (Person person : persons) {
+                    if (person.getName() != null) {
+                        person.display();
+                        person.history();
+                    }
+                }
+            } else if (command == 4) {
+                for (Person person : persons) {
+                    if (person.getName() == null) {
+                        Person.addPersor(person);
+                        break;
+                    }
+                }
+
+            } else if (command == 5) {
+                System.out.println("Выдача книги");
+                System.out.println("Введите айди книги");
+                int numberOfBook = scanner.nextInt();
+                System.out.println("Введите айди пользователя");
+                int userId = scanner.nextInt();
+                library.lendBook(persons[userId - 1], books[numberOfBook - 1]);
+            } else if (command == 6) {
+                System.out.println("Возврат книги");
+                System.out.println("Введите айди книги");
+                int numberOfBook = scanner.nextInt();
+                System.out.println("Введите айди пользователя");
+                int userId = scanner.nextInt();
+                System.out.println("Какую оценку пользователь поставил книге?");
+                int rating = scanner.nextInt();
+                books[numberOfBook-1].getRatings().add(rating);
+                System.out.println("Сколько дней была книга у пользователя?");
+                persons[userId - 1].penalty.curentDay = scanner.nextInt();
+                library.acceptBook(persons[userId - 1], books[numberOfBook - 1]);
+
+            } else if (command == 0) {
+                System.out.println("Выход");
+                break;
+            } else {
+                System.out.println("Извините, такой команды пока нет.");
+            }
+        }
     }
 }

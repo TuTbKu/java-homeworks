@@ -2,25 +2,25 @@ package oop.library;
 
 class Library {
     void lendBook(Person person, Book book) {
-        if (person.role.equals("STUDENT")) {
-            if (!person.studentTakeBook && book.quantityOfBook > 0) {
-                person.borrowedBook = book;
-                book.quantityOfBook--;
-                person.studentTakeBook = true;
-                person.historyOfTakedBook = person.historyOfTakedBook + book.nameOfBook + "| ";
-                System.out.println("Студент" + person.name + " взял книгу: " + book.nameOfBook);
+        if (person.getRole().equals("STUDENT")) {
+            if (!person.studentTakeBook && book.getQuantityOfBook() > 0) {
+                person.setBorrowedBook(book);
+                book.setQuantityOfBook(book.getQuantityOfBook()-1);
+                person.setStudentTakeBook(true);
+                person.setHistoryOfTakedBook(person.getHistoryOfTakedBook()+book.getNameOfBook()+ "| ");
+                System.out.println("Студент" + person.getName() + " взял книгу: " + book.getNameOfBook());
             } else {
                 System.out.println("Студент не вернул книгу взятую ранее");
             }
         }
 
-        if (person.role.equals("TEACHER")) {
-            if (book.quantityOfBook > 0) {
-                person.borrowedBook = book;
-                book.quantityOfBook--;
-                person.historyOfTakedBook = person.historyOfTakedBook + book.nameOfBook + "| ";
-                System.out.println("Преподаватель " + person.name + " взял книгу: " + book.nameOfBook);
-                person.teacherTakedBooKs++;
+        if (person.getRole().equals("TEACHER")) {
+            if (book.getQuantityOfBook() > 0) {
+                person.setBorrowedBook(book);
+                book.setQuantityOfBook(book.getQuantityOfBook()-1);
+                person.setHistoryOfTakedBook(person.getHistoryOfTakedBook()+book.getNameOfBook()+ "| ");
+                System.out.println("Преподаватель " + person.getName() + " взял книгу: " + book.getNameOfBook());
+                person.setTeacherTakedBooKs(person.getTeacherTakedBooKs()+1);
             } else {
                 System.out.println("Данная книга закончилась в библиотеке");
             }
@@ -28,12 +28,12 @@ class Library {
     }
 
     void acceptBook(Person person, Book book) {
-        if (person.role.equals("STUDENT")) {
+        if (person.getRole().equals("STUDENT")) {
             if (person.studentTakeBook) {
                 person.studentTakeBook = false;
-                book.quantityOfBook++;
-                person.borrowedBook = null;
-                System.out.println("Студент " + person.name + " вернул книгу:" + book.nameOfBook);
+                book.setQuantityOfBook(book.getQuantityOfBook()+1);
+                person.setBorrowedBook(null);
+                System.out.println("Студент " + person.getName() + " вернул книгу:" + book.getNameOfBook());
                 if (person.penalty.curentDay > person.penalty.maxDays) {
                     person.penalty.penaltyDays = person.penalty.curentDay - person.penalty.maxDays; // Вычисление просрочки
                     System.out.println("Книга возвращена с просрочкой. Штраф: " + (person.penalty.penaltyDays * person.penalty.penaltyPrise));// Вывод вычисление суммы штрафа
@@ -42,12 +42,12 @@ class Library {
                 System.out.println("У студента нет взятых книг");
             }
         }
-        if (person.role.equals("TEACHER")) {
-            if (person.teacherTakedBooKs != 0) {
-                System.out.println("Преподаватель " + person.name + " вернул книгу: " + book.nameOfBook);
-                book.quantityOfBook++;
-                person.teacherTakedBooKs--;
-                person.borrowedBook = null;
+        if (person.getRole().equals("TEACHER")) {
+            if (person.getTeacherTakedBooKs()!= 0) {
+                System.out.println("Преподаватель " + person.getName() + " вернул книгу: " + book.getNameOfBook());
+                book.setQuantityOfBook(book.getQuantityOfBook()+1);
+                person.setTeacherTakedBooKs(person.getTeacherTakedBooKs()-1);
+                person.setBorrowedBook(null);;
             } else {
                 System.out.println("У преподавателя нет книг для возврата");
             }
