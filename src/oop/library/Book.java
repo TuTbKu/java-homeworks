@@ -1,6 +1,5 @@
 package oop.library;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -66,7 +65,7 @@ public class Book {
 
     public void display() {
         System.out.println("Автор книги: ' " + author + "' | Идентификатор Книги:" + id + "| " +
-                "Название книги: " + nameOfBook + " | Kатегория:" + category + ". Рейтинг:" + ratingCalc());
+                "Название книги: " + nameOfBook + " | Kатегория:" + category + ". Рейтинг:" + ratingCalc()+"| Место в рейтинге: "+(ratingPosition+1));
         System.out.println("Книг в библиотеке: " + quantityOfBook);
     }
 
@@ -82,7 +81,16 @@ public class Book {
         book.setQuantityOfBook(scanner.nextInt());
         System.out.println("Книга успешно добавлена!");
     }
+    public static void topOfBooks(Book[] books){
+        for(int i = 0;i<books.length;i++){
+            for(int j = 0;j<books.length;j++){
+                if (books[i].ratingCalc()<books[j].ratingCalc()){
+                    books[i].ratingPosition++;
+                }
+            }
+        }
 
+}
     public int ratingCalc() {
         if (ratings.isEmpty()) {
             return 0;

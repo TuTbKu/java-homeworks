@@ -5,7 +5,6 @@ public class Subject {
     String difficulty;
     int startLevel;
 
-
     public static Subject getChemistrySubject() {
         Subject chemistrySubject = new Subject();
         chemistrySubject.name = "Химия";

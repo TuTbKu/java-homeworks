@@ -1,6 +1,5 @@
 package oop.library;
 
-
 import java.util.Scanner;
 
 public class Person {
@@ -13,7 +12,6 @@ public class Person {
     boolean studentTakeBook = false;
     private int teacherTakedBooKs = 0;
     private String historyOfTakedBook = "";
-
 
     public String getName() {
         return name;
@@ -92,7 +90,6 @@ public class Person {
     void history() {
         System.out.println("История взятых книг: " + historyOfTakedBook);
     }
-
 
     public static void addPersor(Person person) {
         Scanner scanner = new Scanner(System.in);

@@ -3,7 +3,6 @@ package oop.library;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class TestLibBookStudent {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -23,7 +22,6 @@ public class TestLibBookStudent {
             persons[i].setPersonId(i + 1);
             persons[i].penalty = penalty;
         }
-
 
         Subject mathSubject = new Subject();
         mathSubject.name = "Математика";
@@ -70,6 +68,7 @@ public class TestLibBookStudent {
 
         System.out.println("Добро пожаловать в систему управления библиотекой");
 
+
         while (true) {
             System.out.println("Что вы хотите сделать? ");
             System.out.println("1 - Посмотерть список доступных книг");
@@ -85,6 +84,7 @@ public class TestLibBookStudent {
             if (command == 1) {
                 for (Book book : books) {
                     if (book.getNameOfBook() != null) {
+                        Book.topOfBooks(books);
                         book.display();
                     }
                 }
@@ -95,7 +95,6 @@ public class TestLibBookStudent {
                         break;
                     }
                 }
-
             } else if (command == 3) {
                 for (Person person : persons) {
                     if (person.getName() != null) {
@@ -110,7 +109,6 @@ public class TestLibBookStudent {
                         break;
                     }
                 }
-
             } else if (command == 5) {
                 System.out.println("Выдача книги");
                 System.out.println("Введите айди книги");
@@ -130,7 +128,6 @@ public class TestLibBookStudent {
                 System.out.println("Сколько дней была книга у пользователя?");
                 persons[userId - 1].penalty.curentDay = scanner.nextInt();
                 library.acceptBook(persons[userId - 1], books[numberOfBook - 1]);
-
             } else if (command == 0) {
                 System.out.println("Выход");
                 break;
