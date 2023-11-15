@@ -3,7 +3,7 @@ package oop.library;
 class Library {
     void lendBook(Person person, Book book) {
         if (person.getRole().equals("STUDENT")) {
-            if (!person.studentTakeBook && book.getQuantityOfBook() > 0) {
+            if (!person.isStudentTakeBook() && book.getQuantityOfBook() > 0) {
                 person.setBorrowedBook(book);
                 book.setQuantityOfBook(book.getQuantityOfBook()-1);
                 person.setStudentTakeBook(true);
@@ -29,8 +29,8 @@ class Library {
 
     void acceptBook(Person person, Book book) {
         if (person.getRole().equals("STUDENT")) {
-            if (person.studentTakeBook) {
-                person.studentTakeBook = false;
+            if (person.isStudentTakeBook()) {
+                person.setStudentTakeBook(false);
                 book.setQuantityOfBook(book.getQuantityOfBook()+1);
                 person.setBorrowedBook(null);
                 System.out.println("Студент " + person.getName() + " вернул книгу:" + book.getNameOfBook());
@@ -52,5 +52,8 @@ class Library {
                 System.out.println("У преподавателя нет книг для возврата");
             }
         }
+    }
+    boolean bookPersonCorrect(Book book, Person person){
+       return  (book.getNameOfBook() == null&person.getName()==null);
     }
 }

@@ -10,8 +10,25 @@ public class Book {
     private int id;
     private String category;
     private ArrayList<Integer> ratings = new ArrayList<>();
-    int rating;
-    int ratingPosition;
+    private int rating;
+    private int ratingPosition;
+    private int quantityOfBook;
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getRatingPosition() {
+        return ratingPosition;
+    }
+
+    public void setRatingPosition(int ratingPosition) {
+        this.ratingPosition = ratingPosition;
+    }
 
     public void setRatings(ArrayList<Integer> ratings) {
         this.ratings = ratings;
@@ -41,8 +58,6 @@ public class Book {
         return quantityOfBook;
     }
 
-    private int quantityOfBook;
-
     public void setAutor(String autor) {
         this.author = autor;
     }
@@ -65,7 +80,7 @@ public class Book {
 
     public void display() {
         System.out.println("Автор книги: ' " + author + "' | Идентификатор Книги:" + id + "| " +
-                "Название книги: " + nameOfBook + " | Kатегория:" + category + ". Рейтинг:" + ratingCalc()+"| Место в рейтинге: "+(ratingPosition+1));
+                "Название книги: " + nameOfBook + " | Kатегория:" + category + ". Рейтинг:" + ratingCalc() + "| Место в рейтинге: " + (ratingPosition + 1));
         System.out.println("Книг в библиотеке: " + quantityOfBook);
     }
 
@@ -81,16 +96,19 @@ public class Book {
         book.setQuantityOfBook(scanner.nextInt());
         System.out.println("Книга успешно добавлена!");
     }
-    public static void topOfBooks(Book[] books){
-        for(int i = 0;i<books.length;i++){
-            for(int j = 0;j<books.length;j++){
-                if (books[i].ratingCalc()<books[j].ratingCalc()){
+
+    public static void topOfBooks(Book[] books) {
+        for (int i = 0; i < books.length; i++) {
+            books[i].ratingPosition = 0;
+            for (int j = 0; j < books.length; j++) {
+                if (books[i].ratingCalc() < books[j].ratingCalc()) {
                     books[i].ratingPosition++;
                 }
             }
         }
 
-}
+    }
+
     public int ratingCalc() {
         if (ratings.isEmpty()) {
             return 0;
@@ -99,7 +117,7 @@ public class Book {
         for (Integer rating : ratings) {
             ratingTemp += rating;
         }
-        rating=ratingTemp / ratings.size();
+        rating = ratingTemp / ratings.size();
         return ratingTemp / ratings.size();
     }
 }

@@ -105,7 +105,7 @@ public class TestLibBookStudent {
             } else if (command == 4) {
                 for (Person person : persons) {
                     if (person.getName() == null) {
-                        Person.addPersor(person);
+                        Person.addPerson(person);
                         break;
                     }
                 }
@@ -115,19 +115,33 @@ public class TestLibBookStudent {
                 int numberOfBook = scanner.nextInt();
                 System.out.println("Введите айди пользователя");
                 int userId = scanner.nextInt();
-                library.lendBook(persons[userId - 1], books[numberOfBook - 1]);
+                if (library.bookPersonCorrect(books[numberOfBook - 1], persons[userId - 1])) {
+                    System.out.println("Вы ввели неверный id пользователя или книги");
+                } else {
+                    library.lendBook(persons[userId - 1], books[numberOfBook - 1]);
+                }
             } else if (command == 6) {
                 System.out.println("Возврат книги");
                 System.out.println("Введите айди книги");
                 int numberOfBook = scanner.nextInt();
                 System.out.println("Введите айди пользователя");
                 int userId = scanner.nextInt();
-                System.out.println("Какую оценку пользователь поставил книге?");
-                int rating = scanner.nextInt();
-                books[numberOfBook-1].getRatings().add(rating);
+                while (true) {
+                    System.out.println("Какую оценку пользователь поставил книге?");
+                    int rating = scanner.nextInt();
+                    if (rating <= 5 & rating >= 1) {
+                        books[numberOfBook - 1].getRatings().add(rating);
+                        break;
+                    }
+                    System.out.println("Вы ввели неверную оценку (только от 1 до 5)");
+                }
                 System.out.println("Сколько дней была книга у пользователя?");
                 persons[userId - 1].penalty.curentDay = scanner.nextInt();
-                library.acceptBook(persons[userId - 1], books[numberOfBook - 1]);
+                if (library.bookPersonCorrect(books[numberOfBook - 1], persons[userId - 1])) {
+                    System.out.println("Вы ввели неверный id пользователя или книги");
+                } else {
+                    library.acceptBook(persons[userId - 1], books[numberOfBook - 1]);
+                }
             } else if (command == 0) {
                 System.out.println("Выход");
                 break;

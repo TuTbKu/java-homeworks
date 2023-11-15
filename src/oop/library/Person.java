@@ -9,7 +9,7 @@ public class Person {
     private int personId;
     private Book borrowedBook;
     Penalty penalty;
-    boolean studentTakeBook = false;
+    private boolean studentTakeBook = false;
     private int teacherTakedBooKs = 0;
     private String historyOfTakedBook = "";
 
@@ -78,7 +78,7 @@ public class Person {
     }
 
     void display() {
-        System.out.println("Имя: " + name + ". Номер :" + personId+"   "+role);
+        System.out.println("Имя: " + name + ". Номер :" + personId + "   " + role);
         if (borrowedBook != null) {
             System.out.println("Взятая книга: ");
             borrowedBook.display();
@@ -91,7 +91,7 @@ public class Person {
         System.out.println("История взятых книг: " + historyOfTakedBook);
     }
 
-    public static void addPersor(Person person) {
+    public static void addPerson(Person person) {
         Scanner scanner = new Scanner(System.in);
         Scanner scanner1 = new Scanner(System.in);
 
@@ -105,8 +105,7 @@ public class Person {
             System.out.println("Введите предмет преподавателя:");
             if (scanner1.nextLine().equals("химия")) {
                 person.setSubject(Subject.getChemistrySubject());
-            }
-            else if(scanner1.nextLine().equals("математика")){
+            } else if (scanner1.nextLine().equals("математика")) {
                 person.setSubject(Subject.getMathSubject());
             }
         }
